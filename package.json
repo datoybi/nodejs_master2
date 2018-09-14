@@ -24,6 +24,7 @@
     "compression": "^1.7.3",
     "expres": "0.0.5",
     "express": "^4.16.3",
+    "helmet": "^3.13.0",
     "sanitize-html": "^1.18.2"
   }
 }
