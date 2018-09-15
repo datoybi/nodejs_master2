@@ -6,6 +6,7 @@ var compression = require('compression')
 var topicRouter = require('./routes/topic');
 var indexRouter = require('./routes/index');
 var helmet = require('helmet');
+var db = require('./lib/db');
 
 app.use(helmet());
 app.use(express.static('public')); //http://localhost:3000/images/hello.jpg
