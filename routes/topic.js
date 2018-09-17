@@ -39,7 +39,7 @@ router.post('/create_process', function(req, res){
         var html = template.HTML(topic[0].title, list,
           `
           <form action="/topic/update_process" method="post">
-            <input type="hidden" name="id" value="${topic[0].title}">
+            <input type="hidden" name="id" value="${topic[0].id}">
             <p><input type="text" name="title" placeholder="title" value="${topic[0].title}"></p>
             <p>
               <textarea name="description" placeholder="description">${topic[0].description}</textarea>
@@ -59,17 +59,20 @@ router.post('/create_process', function(req, res){
   router.post('/update_process', function(req, res){
     var post = req.body;
     db.query('UPDATE topic SET title=?, description=?, author_id=1 WHERE id=?', [post.title, post.description, post.id], function(error, result){
-    res.redirect(`/topic/${result.insertId}`);
+    res.redirect(`/topic/${post.id}`);
     });
   });
   
   router.post('/delete_process', function(req, res){
+
+    /*
     var post = req.body;
     var id = post.id;
     var filteredId = path.parse(id).base;
     fs.unlink(`data/${filteredId}`, function(error){
-      res.redirect('/');
+    res.redirect('/');
     });
+     */
   });
   
   router.get('/:pageId/', function (req, res, next) {
