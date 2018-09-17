@@ -64,22 +64,17 @@ router.post('/create_process', function(req, res){
   });
   
   router.post('/delete_process', function(req, res){
-
-    /*
     var post = req.body;
-    var id = post.id;
-    var filteredId = path.parse(id).base;
-    fs.unlink(`data/${filteredId}`, function(error){
-    res.redirect('/');
+    console.log(post);
+    db.query(`DELETE FROM topic WHERE id=?`, [post.id] ,function(error, result){
+      res.redirect('/');
     });
-     */
   });
   
   router.get('/:pageId/', function (req, res, next) {
     db.query('SELECT * FROM topic', function(error1, topics){
       db.query(`SELECT * FROM topic WHERE id=?`, [req.params.pageId], function(error2, topic){
         var title = topic[0].title;
-        console.log(title);
         var sanitizedTitle = sanitizeHtml(title);
         var sanitizedDescription = sanitizeHtml(topic[0].description);
         var list = template.list(topics);
@@ -88,7 +83,7 @@ router.post('/create_process', function(req, res){
           ` <a href="/topic/create">create</a>
             <a href="/topic/update/${topic[0].id}">update</a>
             <form action="/topic/delete_process" method="post">
-              <input type="hidden" name="id" value="${sanitizedTitle}">
+              <input type="hidden" name="id" value="${topic[0].id}">
               <input type="submit" value="delete">
             </form>`
           );
